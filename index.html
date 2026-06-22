@@ -170,6 +170,40 @@
   .stat .l{font-size:12.5px;color:var(--muted);margin-top:5px}
   .stat .sub{font-size:11px;color:#9aa7b0;margin-top:4px}
 
+  /* view toggle */
+  .viewtoggle{display:inline-flex;background:var(--paper);border:1.5px solid var(--line);
+    border-radius:999px;padding:4px;gap:3px;margin-bottom:14px}
+  .viewtoggle button{border:none;background:none;font:inherit;font-size:13px;font-weight:600;
+    color:var(--muted);padding:8px 16px;border-radius:999px;cursor:pointer;display:inline-flex;
+    align-items:center;gap:7px;transition:.15s ease}
+  .viewtoggle button svg{width:15px;height:15px}
+  .viewtoggle button:hover{color:var(--ink)}
+  .viewtoggle button[aria-pressed="true"]{background:var(--ink);color:#fff}
+  .viewtoggle button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+  /* list view */
+  .listview{display:none;animation:fade .25s ease}
+  .panel.showlist .listview{display:block}
+  .panel.showlist .ov,.panel.showlist .det{display:none}
+  .listview h3{font-family:"Bricolage Grotesque";margin:6px 0 3px;font-size:20px;font-weight:700;letter-spacing:-.01em}
+  .lv-sub{margin:0 0 16px;color:var(--muted);font-size:14px}
+  .areatable{width:100%;border-collapse:collapse;font-size:13.5px}
+  .areatable th{text-align:right;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;
+    color:var(--muted);font-weight:700;padding:0 0 9px 8px;border-bottom:2px solid var(--line);vertical-align:bottom}
+  .areatable th:first-child{text-align:left;padding-left:0}
+  .areatable td{padding:9px 0;border-bottom:1px solid var(--line);vertical-align:middle}
+  .areatable td.num{text-align:right;font-family:"Space Grotesk";font-weight:600;
+    font-variant-numeric:tabular-nums;white-space:nowrap;padding-left:8px;color:var(--ink)}
+  .areatable tbody tr{cursor:pointer;transition:background .12s ease}
+  .areatable tbody tr:hover{background:var(--coral-tint)}
+  .area-cell .a{display:block;font-weight:600;color:var(--ink);line-height:1.2}
+  .area-cell .bo{display:block;font-size:11.5px;color:var(--muted)}
+  .areatable tfoot td{border-bottom:none;border-top:2px solid var(--ink);padding-top:12px;
+    font-weight:700;color:var(--ink)}
+  .areatable tfoot td:first-child{font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+  .areatable tfoot td.num{font-family:"Space Grotesk";color:var(--coral-deep)}
+  .lv-note{margin:14px 0 0;font-size:11.5px;color:#9aa7b0}
+
   footer{color:#9fb0bf;padding:22px 0 40px}
   footer .wrap{font-size:12px;line-height:1.6;text-align:center}
   footer b{color:#d7e1ea;font-weight:600}
@@ -268,11 +302,15 @@
 
       <!-- PANEL -->
       <aside>
+        <div class="viewtoggle" role="group" aria-label="Switch panel view">
+          <button type="button" id="tg-map" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3 3 5.5v15L9 18l6 3 6-2.5v-15L15 6 9 3Z"/><path d="M9 3v15M15 6v15"/></svg>Map details</button>
+          <button type="button" id="tg-list" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h12M8 12h12M8 18h12"/><circle cx="3.6" cy="6" r="1.05" fill="currentColor" stroke="none"/><circle cx="3.6" cy="12" r="1.05" fill="currentColor" stroke="none"/><circle cx="3.6" cy="18" r="1.05" fill="currentColor" stroke="none"/></svg>Full list</button>
+        </div>
         <div class="panel" id="panel">
           <div class="ov" id="ov">
             <h3>Eight areas, one GM&#8209;wide programme</h3>
             <p>A single, connected Beat the Street offer spanning Greater Manchester &mdash; from Bolton borough&#8209;wide to neighbourhood&#8209;focused areas in seven other boroughs.</p>
-            <div class="hint"><span aria-hidden="true">&#128205;</span><span>Select an area on the map to view its figures.</span></div>
+            <div class="hint"><span aria-hidden="true">&#128205;</span><span>Select an area on the map, or switch to <b>Full list</b> above.</span></div>
             <div class="stats">
               <div class="stat sch"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 21 8.5 12 13 3 8.5 12 4Z"/><path d="M6.5 10.5V15c0 1.4 2.5 2.5 5.5 2.5s5.5-1.1 5.5-2.5v-4.5"/><path d="M21 8.5V14"/></svg></div><div><div class="v">181</div><div class="l">Schools participating across all eight areas</div></div></div>
               <div class="stat tar"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="12" cy="12" r="1"/></svg></div><div><div class="v">57,324</div><div class="l">Combined Target Engagement</div></div></div>
@@ -288,6 +326,17 @@
               <div class="stat sch"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 21 8.5 12 13 3 8.5 12 4Z"/><path d="M6.5 10.5V15c0 1.4 2.5 2.5 5.5 2.5s5.5-1.1 5.5-2.5v-4.5"/><path d="M21 8.5V14"/></svg></div><div><div class="v" id="d-sch"></div><div class="l">Schools participating</div></div></div>
               <div class="stat tar"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="12" cy="12" r="1"/></svg></div><div><div class="v" id="d-tar"></div><div class="l">Target Engagement</div></div></div>
             </div>
+          </div>
+
+          <div class="listview" id="listview">
+            <h3>All participating areas</h3>
+            <p class="lv-sub">Eight areas across Greater Manchester</p>
+            <table class="areatable" id="areatable">
+              <thead><tr><th>Area</th><th>Population</th><th>Schools</th><th>Target Engagement</th></tr></thead>
+              <tbody id="areatbody"></tbody>
+              <tfoot><tr><td>Total</td><td class="num">&#8776;&nbsp;522,000</td><td class="num">181</td><td class="num">57,324</td></tr></tfoot>
+            </table>
+            <p class="lv-note">Population figures approximate, based on ONS&nbsp;2021 Census data.</p>
           </div>
         </div>
       </aside>
@@ -325,7 +374,7 @@
   }
   function select(b){
     const d=byB[b]; if(!d) return;
-    current=b; clearSel();
+    current=b; clearSel(); setView('map');
     boroughEls.filter(e=>e.dataset.b===b).forEach(e=>e.classList.add('sel'));
     wardEls.filter(e=>e.dataset.b===b).forEach(e=>e.classList.add('sel'));
     els.area.textContent=d.area;
@@ -352,6 +401,31 @@
   }
   boroughEls.forEach(bind);
   wardEls.forEach(e=>e.addEventListener('click',()=>select(e.dataset.b)));
+
+  // full-list table
+  const tbody=document.getElementById('areatbody');
+  DATA.forEach(d=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td class="area-cell"><span class="a">'+d.area+'</span><span class="bo">'+d.borough+'</span></td>'
+      +'<td class="num">\u2248\u00a0'+fmt(d.pop)+'</td>'
+      +'<td class="num">'+fmt(d.schools)+'</td>'
+      +'<td class="num">'+fmt(d.target)+'</td>';
+    tr.title='View '+d.area+' on the map';
+    tr.addEventListener('click',()=>select(d.borough));
+    tbody.appendChild(tr);
+  });
+
+  // view toggle
+  const tgMap=document.getElementById('tg-map'), tgList=document.getElementById('tg-list');
+  function setView(mode){
+    const list=mode==='list';
+    panel.classList.toggle('showlist',list);
+    tgList.setAttribute('aria-pressed',list);
+    tgMap.setAttribute('aria-pressed',!list);
+  }
+  tgMap.addEventListener('click',()=>setView('map'));
+  tgList.addEventListener('click',()=>setView('list'));
+
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') deselect(); });
 </script>
 </body>
